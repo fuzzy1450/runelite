@@ -240,7 +240,7 @@ public class BankPlugin extends Plugin
 	private String createValueText(final ContainerPrices prices)
 	{
 		final long gePrice = prices.getGePrice();
-		final long haPrice = prices.gethighAlchPrice();
+		final long haPrice = prices.getHighAlchPrice();
 
 		String strCurrentTab = "";
 		if (config.showGE() && gePrice != 0)
