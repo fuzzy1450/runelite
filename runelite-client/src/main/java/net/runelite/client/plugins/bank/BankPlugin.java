@@ -61,6 +61,7 @@ import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.banktags.tabs.BankSearch;
+import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.StackFormatter;
 
 @PluginDescriptor(
@@ -113,6 +114,12 @@ public class BankPlugin extends Plugin
 	@Inject
 	private ContainerCalculation seedVaultCalculation;
 
+	@Inject
+	private BankItemsOverlay overlay;
+
+	@Inject
+	private OverlayManager overlayManager;
+
 	private boolean forceRightClickFlag;
 	private Multiset<Integer> itemQuantities; // bank item quantities for bank value search
 
@@ -120,6 +127,12 @@ public class BankPlugin extends Plugin
 	BankConfig getConfig(ConfigManager configManager)
 	{
 		return configManager.getConfig(BankConfig.class);
+	}
+
+	@Override
+	public void startUp()
+	{
+		overlayManager.add(overlay);
 	}
 
 	@Override
@@ -227,7 +240,7 @@ public class BankPlugin extends Plugin
 	private String createValueText(final ContainerPrices prices)
 	{
 		final long gePrice = prices.getGePrice();
-		final long haPrice = prices.getHighAlchPrice();
+		final long haPrice = prices.gethighAlchPrice();
 
 		String strCurrentTab = "";
 		if (config.showGE() && gePrice != 0)

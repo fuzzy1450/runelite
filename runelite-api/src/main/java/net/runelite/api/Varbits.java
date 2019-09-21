@@ -479,6 +479,11 @@ public enum Varbits
 	BANK_TAB_EIGHT_COUNT(4178),
 	BANK_TAB_NINE_COUNT(4179),
 
+	/*
+	* Spells being auto-casted
+	* */
+	AUTO_CAST_SPELL(276),
+
 	/**
 	 * Type of GE offer currently being created
 	 * 0 = buy
@@ -499,7 +504,12 @@ public enum Varbits
 	EXPLORER_RING_ALCHS(4554),
 	EXPLORER_RING_RUNENERGY(4553),
 
-	WINTERTODT_TIMER(7980);
+	WINTERTODT_TIMER(7980),
+
+	/**
+	 * 1 is true, 0 is false.
+	 */
+	GAUNTLET_FINAL_ROOM_ENTERED(9177);
 
 	/**
 	 * The raw varbit ID.
