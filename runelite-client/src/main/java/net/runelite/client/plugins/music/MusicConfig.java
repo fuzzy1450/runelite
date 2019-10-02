@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2019, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,50 +22,58 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.client.plugins.music;
 
-import java.awt.Polygon;
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.Range;
 
-/**
- * Represents one or two walls on a tile
- */
-public interface WallObject extends TileObject
+@ConfigGroup("music")
+public interface MusicConfig extends Config
 {
-	/**
-	 * A bitfield with the orientation of a wall
-	 * 1 = East
-	 * 2 = North
-	 * 4 = West
-	 * 8 = South
-	 */
-	int getOrientationA();
+	@ConfigItem(
+		keyName = "musicVolume",
+		name = "Music Volume",
+		description = "Overrides music volume in game with more granular control",
+		position = 1
+	)
+	@Range(
+		min = 0,
+		max = 255
+	)
+	default int getMusicVolume()
+	{
+		return 0;
+	}
 
-	/**
-	 * A bitfield containing the orientation of the second wall on this tile,
-	 * or 0 if there is no second wall.
-	 * @see #getOrientationA
-	 */
-	int getOrientationB();
+	@ConfigItem(
+		keyName = "soundEffectVolume",
+		name = "Sound Effect Volume",
+		description = "Overrides the sound effect volume in game with more granular control",
+		position = 2
+	)
+	@Range(
+		min = 0,
+		max = 127
+	)
+	default int getSoundEffectVolume()
+	{
+		return 0;
+	}
 
-	/**
-	 * A bitfield containing various flags:
-	 * <pre>{@code
-	 * object type id = bits & 0x20
-	 * orientation (0-3) = bits >>> 6 & 3
-	 * supports items = bits >>> 8 & 1
-	 * }</pre>
-	 */
-	int getConfig();
-
-	/**
-	 * Gets the convex hull of the objects model.
-	 *
-	 * @return the convex hull
-	 * @see net.runelite.api.model.Jarvis
-	 */
-	Polygon getConvexHull();
-	Polygon getConvexHull2();
-
-	Renderable getRenderable1();
-	Renderable getRenderable2();
+	@ConfigItem(
+		keyName = "areaSoundEffectVolume",
+		name = "Area Sound Effect Volume",
+		description = "Overrides the area sound effect volume in game with more granular control",
+		position = 3
+	)
+	@Range(
+		min = 0,
+		max = 127
+	)
+	default int getAreaSoundEffectVolume()
+	{
+		return 0;
+	}
 }
